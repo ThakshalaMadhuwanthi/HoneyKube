@@ -1,0 +1,6 @@
+2025-08-20 11:03:10,812 | SSH_Honeypot | SSH Honeypot running on port 2222
+2025-08-20 11:03:22,549 | SSH_Honeypot | Connection from 127.0.0.1
+2025-08-20 11:03:22,595 | SSH_Honeypot | Exception: 
+2025-08-20 11:03:39,327 | SSH_Honeypot | Connection from 127.0.0.1
+2025-08-20 11:03:45,260 | SSH_Honeypot | Attempted login | Username: testuser | Password: dkd1128
+2025-08-20 11:03:50,041 | SSH_Honeypot | Attempted login | Username: testuser | Password: dkd11128

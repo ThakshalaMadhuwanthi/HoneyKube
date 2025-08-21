@@ -1,2 +1,8 @@
 2025-08-21 07:26:58,103 | HTTP_Honeypot | Request from 127.0.0.1 | Path: /test | Method: GET | Data: 
 2025-08-21 09:26:02,384 | HTTP_Honeypot | Request from 127.0.0.1 | Path: / | Method: GET | Data: 
+2025-08-21 05:44:12,233 | HTTP_Honeypot | Request from 172.18.0.1 | Path: / | Method: GET | Data: 
+2025-08-21 05:44:12,846 | HTTP_Honeypot | Request from 172.18.0.1 | Path: / | Method: GET | Data: 
+2025-08-21 05:44:19,037 | HTTP_Honeypot | Request from 172.18.0.1 | Path: /favicon.ico | Method: GET | Data: 
+2025-08-21 05:44:19,069 | HTTP_Honeypot | Request from 172.18.0.1 | Path: /favicon.ico | Method: GET | Data: 
+2025-08-21 05:44:20,193 | HTTP_Honeypot | Request from 172.18.0.1 | Path: / | Method: GET | Data: 
+2025-08-21 05:46:28,150 | HTTP_Honeypot | Request from 172.18.0.1 | Path: / | Method: GET | Data: 

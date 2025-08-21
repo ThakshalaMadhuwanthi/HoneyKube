@@ -1,2 +1,3 @@
 port: 8080
-log_file: "../../logs/http.log"
+log_file: "logs/http.log"
+

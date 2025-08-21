@@ -1,9 +1,9 @@
 from flask import Flask, request
-from utils.logger import setup_logger
-from utils.config_parser import read_config
+from src.utils.logger import setup_logger
+from src.utils.config_parser import read_config
 
 # Load config
-config = read_config("config.yaml")
+config = read_config("config.yaml")["http"]  # <-- pick only http section
 PORT = config["port"]
 LOG_FILE = config["log_file"]
 
@@ -24,3 +24,4 @@ def catch_all(path):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=PORT)
+

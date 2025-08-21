@@ -6,7 +6,7 @@ from src.utils.config_parser import read_config
 
 
 # Load config
-config = read_config("config.yaml")
+config = read_config("config.yaml")["ssh"]
 PORT = config["port"]
 LOG_FILE = config["log_file"]
 

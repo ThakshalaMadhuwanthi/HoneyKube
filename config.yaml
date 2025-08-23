@@ -1,0 +1,9 @@
+ssh:
+  port: 2222
+  log_file: "logs/ssh.log"
+
+http:
+  port: 8080
+  log_file: "logs/http.log"
+
+

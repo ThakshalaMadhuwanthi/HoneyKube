@@ -1,0 +1,32 @@
+2025-08-20 11:03:10,812 | SSH_Honeypot | SSH Honeypot running on port 2222
+2025-08-20 11:03:22,549 | SSH_Honeypot | Connection from 127.0.0.1
+2025-08-20 11:03:22,595 | SSH_Honeypot | Exception: 
+2025-08-20 11:03:39,327 | SSH_Honeypot | Connection from 127.0.0.1
+2025-08-20 11:03:45,260 | SSH_Honeypot | Attempted login | Username: testuser | Password: dkd1128
+2025-08-20 11:03:50,041 | SSH_Honeypot | Attempted login | Username: testuser | Password: dkd11128
+2025-08-20 11:21:30,054 | HTTP_Honeypot | Request from 127.0.0.1 | Path: / | Method: GET | Data: 
+2025-08-20 11:21:30,334 | HTTP_Honeypot | Request from 127.0.0.1 | Path: /favicon.ico | Method: GET | Data: 
+2025-08-20 11:23:24,076 | HTTP_Honeypot | Request from 127.0.0.1 | Path: / | Method: GET | Data: 
+2025-08-20 11:25:56,029 | HTTP_Honeypot | Request from 127.0.0.1 | Path: / | Method: GET | Data: 
+2025-08-20 11:25:57,879 | HTTP_Honeypot | Request from 127.0.0.1 | Path: / | Method: GET | Data: 
+2025-08-20 11:26:14,840 | HTTP_Honeypot | Request from 127.0.0.1 | Path: / | Method: GET | Data: 
+2025-08-20 11:28:56,254 | HTTP_Honeypot | Request from 127.0.0.1 | Path: / | Method: GET | Data: 
+2025-08-21 06:59:58,514 | HTTP_Honeypot | Request from 127.0.0.1 | Path: / | Method: GET | Data: 
+2025-08-21 07:04:34,498 | HTTP_Honeypot | Request from 127.0.0.1 | Path: /test | Method: POST | Data: username=admin&password=1234
+2025-08-21 08:48:03,793 | SSH_Honeypot | SSH Honeypot running on port 2222
+2025-08-21 08:48:54,418 | SSH_Honeypot | Connection from 127.0.0.1
+2025-08-21 08:48:54,892 | SSH_Honeypot | Exception: 
+2025-08-21 08:49:13,698 | SSH_Honeypot | Connection from 127.0.0.1
+2025-08-21 08:49:13,705 | SSH_Honeypot | Exception: 
+2025-08-21 08:50:15,205 | SSH_Honeypot | Connection from 127.0.0.1
+2025-08-21 08:50:22,127 | SSH_Honeypot | Attempted login | Username: testuser | Password: 123
+2025-08-21 08:50:24,966 | SSH_Honeypot | Attempted login | Username: testuser | Password: 123
+2025-08-21 08:58:09,783 | SSH_Honeypot | Connection from 127.0.0.1
+2025-08-21 08:58:14,342 | SSH_Honeypot | Attempted login | Username: testuser | Password: rts
+2025-08-21 08:58:17,877 | SSH_Honeypot | Attempted login | Username: testuser | Password: rts
+2025-08-21 05:41:23,499 | SSH_Honeypot | SSH Honeypot running on port 2222
+2025-08-21 05:42:19,274 | SSH_Honeypot | Connection from 172.18.0.1
+2025-08-21 05:42:19,298 | SSH_Honeypot | Exception: 
+2025-08-21 05:43:20,540 | SSH_Honeypot | Connection from 172.18.0.1
+2025-08-21 05:43:28,116 | SSH_Honeypot | Attempted login | Username: tak | Password: w12
+2025-08-21 05:43:30,877 | SSH_Honeypot | Attempted login | Username: tak | Password: w12

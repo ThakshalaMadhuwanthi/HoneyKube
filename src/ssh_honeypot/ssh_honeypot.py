@@ -40,6 +40,7 @@ def handle_client(client_socket):
         client_socket.close()
 
 def start_server():
+    HOST = "0.0.0.0"
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind(("", PORT))
     server_socket.listen(100)

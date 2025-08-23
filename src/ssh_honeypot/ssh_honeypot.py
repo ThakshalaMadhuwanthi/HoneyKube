@@ -1,55 +1,85 @@
 import socket
 import threading
-import paramiko
-from src.utils.logger import setup_logger
-from src.utils.config_parser import read_config
+import datetime
+import os
+import yaml
+from collections import defaultdict
+from typing import Dict, List
 
+# Load configuration from config.yaml
+with open("config.yaml", "r") as f:
+    config = yaml.safe_load(f)
 
-# Load config
-config = read_config("config.yaml")["ssh"]
-PORT = config["port"]
-LOG_FILE = config["log_file"]
+SSH_PORT = config["ssh"]["port"]
+LOG_FILE = config["ssh"]["log_file"]
 
-# Setup logger
-logger = setup_logger("SSH_Honeypot", LOG_FILE)
+# Brute-force detection values from config.yaml
+THRESHOLD = config.get("brute_force", {}).get("max_attempts", 5)   # default=5
+WINDOW = config.get("brute_force", {}).get("window_seconds", 60)  # default=60
 
-# Generate host key for SSH server
-host_key = paramiko.RSAKey.generate(2048)
+# Track failed login attempts per IP
+FAILED_ATTEMPTS: Dict[str, List[datetime.datetime]] = defaultdict(list)
 
-class SSHServer(paramiko.ServerInterface):
-    def check_auth_password(self, username, password):
-        logger.info(f"Attempted login | Username: {username} | Password: {password}")
-        return paramiko.AUTH_FAILED
+def log_event(message: str):
+    """Log honeypot events to file with timestamp"""
+    os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+    with open(LOG_FILE, "a") as f:
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        f.write(f"{timestamp} | SSH_Honeypot | {message}\n")
+    print(message)
 
-    def get_allowed_auths(self, username):
-        return "password"
+def detect_bruteforce(ip: str):
+    """Check if an IP exceeded brute-force threshold"""
+    now = datetime.datetime.now()
+    FAILED_ATTEMPTS[ip] = [
+        t for t in FAILED_ATTEMPTS[ip] if (now - t).seconds <= WINDOW
+    ]
+    if len(FAILED_ATTEMPTS[ip]) >= THRESHOLD:
+        log_event(f"[BRUTEFORCE DETECTED] IP: {ip} exceeded {THRESHOLD} failed attempts in {WINDOW}s")
+        return True
+    return False
 
-def handle_client(client_socket):
-    transport = paramiko.Transport(client_socket)
-    transport.add_server_key(host_key)
-    server = SSHServer()
+def handle_client(client_socket: socket.socket, client_address: tuple):
+    ip = client_address[0]
+    log_event(f"Connection from {ip}:{client_address[1]}")
+
     try:
-        transport.start_server(server=server)
-        channel = transport.accept(20)
-        if channel is not None:
-            channel.send("SSH Honeypot - Fake Shell\n")
-            channel.close()
-    except Exception as e:
-        logger.info(f"Exception: {e}")
-    finally:
+        client_socket.send(b"login: ")
+        username = client_socket.recv(1024).decode().strip()
+        client_socket.send(b"password: ")
+        password = client_socket.recv(1024).decode().strip()
+
+        log_event(f"Attempted login | Username: {username} | Password: {password}")
+
+        # Record failed attempt
+        now = datetime.datetime.now()
+        FAILED_ATTEMPTS[ip].append(now)
+
+        # Check brute-force detection
+        detect_bruteforce(ip)
+
+        client_socket.send(b"Permission denied\n")
         client_socket.close()
 
-def start_server():
-    HOST = "0.0.0.0"
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(("", PORT))
-    server_socket.listen(100)
-    logger.info(f"SSH Honeypot running on port {PORT}")
+    except Exception as e:
+        log_event(f"Exception: {e}")
+        client_socket.close()
+
+def start_honeypot():
+    """Start SSH honeypot"""
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.bind(("0.0.0.0", SSH_PORT))
+    server.listen(5)
+    log_event(f"SSH Honeypot running on port {SSH_PORT}")
 
     while True:
-        client, addr = server_socket.accept()
-        logger.info(f"Connection from {addr[0]}")
-        threading.Thread(target=handle_client, args=(client,)).start()
+        client_socket, client_address = server.accept()
+        client_handler = threading.Thread(
+            target=handle_client,
+            args=(client_socket, client_address)
+        )
+        client_handler.start()
 
 if __name__ == "__main__":
-    start_server()
+    start_honeypot()
+

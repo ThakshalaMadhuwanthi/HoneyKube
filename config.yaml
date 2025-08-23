@@ -6,4 +6,8 @@ http:
   port: 8080
   log_file: "logs/http.log"
 
+brute_force:
+  max_attempts: 3
+  window_seconds: 60
+
 
